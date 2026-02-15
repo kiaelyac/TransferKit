@@ -1,8 +1,8 @@
 // The Swift Programming Language
 // https://docs.swift.org/swift-book
 
-class Person {
+public class Person {
     var name: String
     var familyName: String = "Elyasi"
-    init(name: String) { self.name = name }
+    public init(name: String) { self.name = name }
 }
