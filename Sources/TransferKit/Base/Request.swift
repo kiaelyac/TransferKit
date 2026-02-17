@@ -7,13 +7,13 @@
 
 import Foundation
 
-enum HTTPMethod: String {
+public enum HTTPMethod: String {
     case get = "GET"
     case post = "POST"
     case put = "PUT"
     case delete = "DELETE"
 }
-protocol RequestStructurable {
+public protocol RequestStructurable {
     var url: String { get }
     var httpMethod: HTTPMethod { get }
     var httpHeaders: Codable { get }
