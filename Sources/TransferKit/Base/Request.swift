@@ -24,7 +24,7 @@ public extension RequestStructurable {
     var queryItems: Codable? { nil }
     var httpBody: Codable? { nil }
 }
-extension RequestStructurable {
+public extension RequestStructurable {
     func asURLRequest() throws -> URLRequest {
         var urlRequest = URLRequest(url: URL(string: url)!)
         urlRequest.httpMethod = httpMethod.rawValue
