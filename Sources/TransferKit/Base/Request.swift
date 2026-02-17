@@ -20,7 +20,7 @@ public protocol RequestStructurable {
     var httpBody: Codable? { get }
     var queryItems: Codable? { get }
 }
-extension RequestStructurable {
+public extension RequestStructurable {
     var queryItems: Codable? { nil }
     var httpBody: Codable? { nil }
 }
