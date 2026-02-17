@@ -8,7 +8,7 @@
 import Foundation
 
 public class Downloader {
-    func download(for request: RequestStructurable) async throws -> AsyncThrowingStream<Data, Error> {
+    public func download(for request: RequestStructurable) async throws -> AsyncThrowingStream<Data, Error> {
         let urlRequest = try request.asURLRequest()
         let (data, response) = try await URLSession.shared.bytes(for: urlRequest)
         
