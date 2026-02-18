@@ -27,7 +27,7 @@ public class Downloader {
                         }
                     }
                 }
-                continuation.yield(accumulator.data)
+                continuation.finish()
             }
         }
     }
