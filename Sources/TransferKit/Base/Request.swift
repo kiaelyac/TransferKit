@@ -28,7 +28,7 @@ public extension RequestStructurable {
     func asURLRequest() throws -> URLRequest {
         var urlRequest = URLRequest(url: URL(string: url)!)
         urlRequest.httpMethod = httpMethod.rawValue
-        urlRequest.timeoutInterval = 10.0
+        urlRequest.timeoutInterval = 60.0
         for headerItem in try httpHeaders.asDictionary() {
             urlRequest.setValue(headerItem.key, forHTTPHeaderField: headerItem.value as! String)
         }
