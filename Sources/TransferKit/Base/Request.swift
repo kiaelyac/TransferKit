@@ -16,21 +16,24 @@ public enum HTTPMethod: String {
 public protocol RequestStructurable {
     var url: String { get }
     var httpMethod: HTTPMethod { get }
-    var httpHeaders: Codable { get }
+    var httpHeaders: Codable? { get }
     var httpBody: Codable? { get }
     var queryItems: Codable? { get }
 }
 public extension RequestStructurable {
     var queryItems: Codable? { nil }
     var httpBody: Codable? { nil }
+    var httpHeaders: Codable? { nil }
 }
 public extension RequestStructurable {
     func asURLRequest() throws -> URLRequest {
         var urlRequest = URLRequest(url: URL(string: url)!)
         urlRequest.httpMethod = httpMethod.rawValue
         urlRequest.timeoutInterval = 60.0
-        for headerItem in try httpHeaders.asDictionary() {
-            urlRequest.setValue(headerItem.key, forHTTPHeaderField: headerItem.value as! String)
+        if let httpHeaders {
+            for headerItem in try httpHeaders.asDictionary() {
+                urlRequest.setValue(headerItem.key, forHTTPHeaderField: headerItem.value as! String)
+            }
         }
         if let httpBody = httpBody {
             let jsonData = try JSONEncoder().encode(httpBody)
