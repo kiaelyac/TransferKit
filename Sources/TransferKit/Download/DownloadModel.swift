@@ -8,8 +8,8 @@
 import Foundation
 
 public struct DownloadModel: Sendable {
-    var progress: CGFloat
-    var data: Data?
+   public var progress: CGFloat
+   public var data: Data?
     public init(progress: CGFloat, data: Data? = nil) {
         self.progress = progress
         self.data = data
