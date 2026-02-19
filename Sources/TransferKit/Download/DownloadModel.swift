@@ -7,7 +7,8 @@
 
 import Foundation
 
-public struct DownloadModel: Sendable {
+public struct DownloadModel: Identifiable, Sendable {
+  public var id: UUID = UUID()
    public var progress: CGFloat
    public var data: Data?
     public init(progress: CGFloat, data: Data? = nil) {
