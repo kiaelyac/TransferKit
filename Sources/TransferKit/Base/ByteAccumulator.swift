@@ -27,7 +27,8 @@ class ByteAccumulator {
         offset += 1
     }
     func checkCompleted() -> Bool {
-        return data.count == size
+        defer { counter = 0 }
+        return counter == 0
     }
     var progress: Double {
       Double(offset) / Double(size)
