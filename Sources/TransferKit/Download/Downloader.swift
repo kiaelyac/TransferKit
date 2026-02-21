@@ -31,14 +31,6 @@ public class Downloader {
                         item.progress = accumulator.progress
                         continuation.yield(item)
                     }
-                    let endTime = CFAbsoluteTimeGetCurrent()
-                    let timeInterval: TimeInterval = endTime - startTime
-                    let currentDataCount = accumulator.data.count
-                    let receivedDataCount = currentDataCount - previousDataCount
-                    let speed = Double(receivedDataCount) / timeInterval
-                    let value = ((speed / 1024) / 1024) * 8
-                    let remainingTime: TimeInterval = (Double(accumulator.remainingSize) * value) / Double(receivedDataCount)
-                    item.downloadSpeed = remainingTime.rounded()
                 }
                 continuation.finish()
             }
