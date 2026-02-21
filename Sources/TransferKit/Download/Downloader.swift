@@ -24,9 +24,6 @@ public class Downloader {
                 var item: DownloadModel = .init(progress: 0, data: nil)
                 while !accumulator.checkCompleted() {
                     while !accumulator.isChunkCompleted, let byte = try await iterator.next() {
-                        accumulator.append(byte)
-                        item.progress = accumulator.progress
-                        continuation.yield(item)
                     }
                 }
                 continuation.finish()
