@@ -18,7 +18,8 @@ public class Downloader {
         }
         return AsyncThrowingStream<DownloadModel, Error> { continuation in
             Task {
-                let accumulator = ByteAccumulator(size: Int(response.expectedContentLength))
+                let totalSize: Int64 = response.expectedContentLength
+                let accumulator = ByteAccumulator(size: Int(totalSize))
                 var iterator = asyncBytes.makeAsyncIterator()
                 var item: DownloadModel = .init(progress: 0, data: nil)
                 while !accumulator.checkCompleted() {
@@ -35,8 +36,8 @@ public class Downloader {
                     let currentDataCount = accumulator.data.count
                     let receivedDataCount = currentDataCount - previousDataCount
                     let speed = Double(receivedDataCount) / timeInterval
-                    item.downloadSpeed = speed
-
+                    let remainingTime: TimeInterval = (Double(accumulator.remainingSize) * speed) / Double(receivedDataCount)
+                    item.downloadSpeed = remainingTime
                 }
                 continuation.finish()
             }

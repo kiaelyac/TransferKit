@@ -13,6 +13,7 @@ class ByteAccumulator {
     var offset: Int = 0
     var data: Data { return Data(bytes[0..<offset]) }
     var chunkSize: Int { return max(1, Int(Double(size) / 40))}
+    var remainingSize: Int { return size - data.count }
     var counter: Int = -1
     var isChunkCompleted: Bool {
         return counter >= chunkSize
