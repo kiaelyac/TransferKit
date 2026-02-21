@@ -32,7 +32,7 @@ public class Downloader {
                     let endTime = CFAbsoluteTimeGetCurrent()
                     let timeInterval: TimeInterval = endTime - startTime
                     let receivedDataCount = accumulator.data.count
-                    let speed = timeInterval / Double(receivedDataCount)
+                    let speed = Double(receivedDataCount) / timeInterval 
                     item.downloadSpeed = speed
 
                 }
