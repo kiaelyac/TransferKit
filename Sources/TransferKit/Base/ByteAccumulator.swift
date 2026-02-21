@@ -16,7 +16,9 @@ class ByteAccumulator {
     var remainingSize: Int { return size - data.count }
     var counter: Int = -1
     var isChunkCompleted: Bool {
-        print(counter == chunkSize)
+        if counter == chunkSize {
+            print("Chunk Done")
+        }
         return counter >= chunkSize
     }
     init(size: Int) {
