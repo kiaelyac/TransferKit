@@ -22,10 +22,19 @@ public class Downloader {
                 let accumulator = ByteAccumulator(size: Int(totalSize))
                 var iterator = asyncBytes.makeAsyncIterator()
                 while !accumulator.checkCompleted() {
+                    let startTime = CFAbsoluteTimeGetCurrent()
+                    let previousDataCount = accumulator.data.count
                     while !accumulator.isChunkCompleted, let byte = try await iterator.next() {
                         accumulator.append(byte)
-                        continuation.yield(.init(progress: accumulator.progress, data: accumulator.data))
                     }
+                    let endTime = CFAbsoluteTimeGetCurrent()
+                    let timeInterval: TimeInterval = endTime - startTime
+                    let currentDataCount = accumulator.data.count
+                    let receivedDataCount = currentDataCount - previousDataCount
+                    let speed = Double(receivedDataCount) / timeInterval
+                    let value = ((speed / 1024) / 1024) * 8
+                    let remainingTime: TimeInterval = (Double(accumulator.remainingSize) * value) / Double(receivedDataCount)
+                    continuation.yield(.init(progress: accumulator.progress, data: accumulator.data, downloadSpeed: remainingTime.rounded()))
                 }
                 continuation.finish()
             }

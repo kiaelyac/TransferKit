@@ -12,8 +12,9 @@ public struct DownloadModel: Identifiable, Sendable {
     public var progress: CGFloat
     public var data: Data?
     public var downloadSpeed: Double?
-    public init(progress: CGFloat, data: Data? = nil) {
+    public init(progress: CGFloat, data: Data? = nil, downloadSpeed: Double? = nil) {
         self.progress = progress
         self.data = data
+        self.downloadSpeed = downloadSpeed
     }
 }
