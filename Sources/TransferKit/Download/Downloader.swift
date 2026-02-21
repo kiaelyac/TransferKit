@@ -36,7 +36,8 @@ public class Downloader {
                     let currentDataCount = accumulator.data.count
                     let receivedDataCount = currentDataCount - previousDataCount
                     let speed = Double(receivedDataCount) / timeInterval
-                    let remainingTime: TimeInterval = (Double(accumulator.remainingSize) * speed) / Double(receivedDataCount)
+                    let value = ((speed / 1024) / 1024) * 8
+                    let remainingTime: TimeInterval = (Double(accumulator.remainingSize) * value) / Double(receivedDataCount)
                     item.downloadSpeed = remainingTime
                 }
                 continuation.finish()
