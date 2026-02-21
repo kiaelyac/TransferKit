@@ -27,13 +27,14 @@ public class Downloader {
                         accumulator.append(byte)
                         item.data = accumulator.data
                         item.progress = accumulator.progress
-                        let endTime = CFAbsoluteTimeGetCurrent()
-                        let timeInterval: TimeInterval = endTime - startTime
-                        let receivedDataCount = Data([byte]).count
-                        let speed = timeInterval / Double(receivedDataCount)
-                        item.downloadSpeed = speed
                         continuation.yield(item)
                     }
+                    let endTime = CFAbsoluteTimeGetCurrent()
+                    let timeInterval: TimeInterval = endTime - startTime
+                    let receivedDataCount = accumulator.data.count
+                    let speed = timeInterval / Double(receivedDataCount)
+                    item.downloadSpeed = speed
+
                 }
                 continuation.finish()
             }
