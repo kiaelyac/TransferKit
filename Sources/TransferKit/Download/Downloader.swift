@@ -21,9 +21,10 @@ public class Downloader {
                 let totalSize: Int64 = response.expectedContentLength
                 let accumulator = ByteAccumulator(size: Int(totalSize))
                 var iterator = asyncBytes.makeAsyncIterator()
-                var item: DownloadModel = .init(progress: 0, data: nil)
                 while !accumulator.checkCompleted() {
                     while !accumulator.isChunkCompleted, let byte = try await iterator.next() {
+                        accumulator.append(byte)
+                        continuation.yield(.init(progress: accumulator.progress, data: accumulator.data))
                     }
                 }
                 continuation.finish()
