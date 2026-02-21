@@ -25,7 +25,6 @@ public class Downloader {
                 while !accumulator.checkCompleted() {
                     while !accumulator.isChunkCompleted, let byte = try await iterator.next() {
                         accumulator.append(byte)
-                        item.data = accumulator.data
                         item.progress = accumulator.progress
                         continuation.yield(item)
                     }
