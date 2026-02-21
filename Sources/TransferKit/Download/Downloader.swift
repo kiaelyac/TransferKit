@@ -23,6 +23,7 @@ public class Downloader {
                 var item: DownloadModel = .init(progress: 0, data: nil)
                 while !accumulator.checkCompleted() {
                     let startTime = CFAbsoluteTimeGetCurrent()
+                    let previousDataCount = accumulator.data.count
                     while !accumulator.isChunkCompleted, let byte = try await iterator.next() {
                         accumulator.append(byte)
                         item.data = accumulator.data
@@ -31,8 +32,9 @@ public class Downloader {
                     }
                     let endTime = CFAbsoluteTimeGetCurrent()
                     let timeInterval: TimeInterval = endTime - startTime
-                    let receivedDataCount = accumulator.data.count
-                    let speed = Double(receivedDataCount) / timeInterval 
+                    let currentDataCount = accumulator.data.count
+                    let receivedDataCount = currentDataCount - previousDataCount
+                    let speed = Double(receivedDataCount) / timeInterval
                     item.downloadSpeed = speed
 
                 }
