@@ -23,7 +23,6 @@ public class Downloader {
                 var iterator = asyncBytes.makeAsyncIterator()
                 while !accumulator.checkCompleted() {
                     while !accumulator.isChunkCompleted, let byte = try await iterator.next() {
-                        accumulator.append(byte)
                         continuation.yield(.init(progress: accumulator.progress, data: accumulator.data))
                     }
                 }
